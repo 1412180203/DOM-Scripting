@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter02</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<h1>第2章 JavaScript 语法</h1>
+	<h3>2.1 数据类型</h3>
+	<h4>1.字符串</h4>
+	<p>在字符串中的单引号(')和双引号(")，需要用反斜杠(\)对字符进行转义。</p>
+	<h4>2. 数值</h4>
+	<h4>3. 布尔值</h4>
+	<h3>2.2 数组</h3>
+	<p>在 JavaScript 中，数组可以用关键字 Array 声明。例如：</p>
+	<code>
+		var beatles = Array(); //声明一个数组<br />
+		<br />
+		var beatles = Array(4); //声明一个大小为4的数组<br />
+		<br />
+		var beatles = Array("John", "Paul", "George", "Ringo"); //声明数组并对它进行填充<br />
+		<br />
+		var beatles = ["John", "Paul", "George", "Ringo"]; //声明数组并对它进行填充<br />
+	</code>
+	<p>
+		数组还可以包含其他的数组，数组中的任何一个元素都可以把一个数组作为它的值：
+	</p>
+	<code>
+		var lennon = ["John", 1940, false];<br />
+		var beatles = [];<br />
+		beatles[0] = lennon;
+	</code>
+	<p>可以使用数组的 <code class="inlineCode">array.length</code> 属性来获得数组里的元素的个数。</p>
+	<h3>2.3 对象</h3>
+	<p>
+		对象也是使用一个名字表示一组值，对象的每个值都是对象的一个属性，创建对象使用 Object 关键字。例如：
+	</p>
+	<code>
+		var lennon = Object();<br />
+		lennon.name = "John";<br />
+		lennon.year = 1940;<br />
+		lennon.living = false;
+	</code>
+	<p>创建对象还可以使用花括号：</p>
+	<code>
+		var lennon = {<br />
+		&nbsp;&emsp;&emsp;name: "John",<br />
+		&nbsp;&emsp;&emsp;year: 1940,<br />
+		&nbsp;&emsp;&emsp;living: false<br />
+		};
+	</code>
+	<p>
+		对象是自包含的数据集合，包含在对象里的数据可以通过两种形式访问——属性和方法：属性是隶属于某个特定对象的变量；方法是只有某个对象才能调用的变量。在 JavaScript 里，属性和方法都使用“点”语法来访问。<br />
+		实例是对象的具体个体。为给定对象创建一个新实例需要使用 new 关键字，例如：
+	</p>
+	<code>
+		//假设已经存在 Person 对象<br />
+		var jeremy = new Person; //创建 Person 对象的一个实例
+	</code>
+	<h3>小结</h3>
+	<p>
+		1. 在命名变量时，用下划线来分隔各个单词；在命名函数时，从第二个单词开始，每个单词的首字母写成大写形式（驼峰命名法）。
+	</p>
+</body>
+</html>
