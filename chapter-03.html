@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter03</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<h1>第3章 DOM</h1>
+	<h3>3.1 获取元素</h3>
+	<p>有3种 DOM 方法可以获取元素节点，分别是通过元素 ID、通过标签名字和通过类名字来获取。</p>
+	<h4>1. getElementById</h4>
+	<p>
+		这个方法返回一个与那个有着给定 id 属性值的元素节点对应的对象。<br />
+		事实上，文档中的每一个元素都是一个对象，利用 DOM 提供的方法能得到任何一个对象。
+	</p>
+	<h4>2. getElementsByTagName</h4>
+	<p>
+		这个方法返回一个对象数组，每个对象分别对应着文档里有着给定标签的一个元素。<br />
+		getElementsByTagName 允许把一个通配符作为它的参数，而着意味着文档里的每个元素都将在这个函数所返回的数组里占有一席之地。通配符（型号字符 “*”）必须放在引号里，这是为了让通配符与乘法操作符有所区别。如果你想知道某份文档里总共有多少个元素节点，像这样使用通配符即可：<code class="inlineCode">alert(document.getElementsByTagName("*").length);</code><br />
+		还可以把 getElementById 和 getElementsByTagName 结合起来运用，比如，想要知道 id 属性值是 purchases 的元素下的元素节点：
+	</p>
+	<code>
+		var purchases = document.getElementById("purchases");<br />
+		var item = purchases.getElementsByTagName("*");
+	</code>
+	<h4>3. getElementsByClassName</h4>
+	<p>
+		这个方法返回一个具有相同类名的元素的数组。使用这个方法还可以查找那些带有多个类名的元素。要指定多个类名，只要在字符串参数中庸空格分隔类名即可。
+	</p>
+	<h3>3.2 获取和设置属性</h3>
+	<h4>1. getAttribute</h4>
+	<p>
+		getAttribute 方法不属性 document 对象，所以不能通过 document 对象调用。它只能通过元素节点对象调用。
+	</p>
+	<h4>2. setAttribute</h4>
+	<p>
+		这个方法允许我们对属性节点的值做出修改。与 getAttribute 一样，setAttribute 也只能用于元素节点。
+	</p>
+	<code>
+		<var>object</var>.setAttribute(<var>attribute, value</var>);
+	</code>
+	<h3>小结</h3>
+	<p>
+		1. typeof 操作符可以告诉我们它的操作数是一个字符串、数值、函数、布尔值还是对象。
+	</p>
+	<script>
+	</script>
+</body>
+</html>
