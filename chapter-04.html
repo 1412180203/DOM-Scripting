@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter04</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<h1>第4章 案例研究：JavaScript 图片</h1>
+	<h3>4.1 childNodes 属性</h3>
+	<p>
+		在一颗节点树上，childNodes 属性可以用来获取任何一个元素的所有子元素，它是一个包含这个元素全部子元素的数组。
+	</p>
+	<code>
+		<var>element.childNodes</var>
+	</code>
+	<h3>4.2 nodeType 属性</h3>
+	<p>
+		nodeType 属性可以让我们知道自己正在与哪一种节点打交道，可以用下面的语法获取节点的 nodeType 属性。
+	</p>
+	<code>
+		<var>node.nodeType</var>
+	</code>
+	<p>
+		nodeType 属性共有12种可取的值，但其中仅有3种具有实用价值。<br />
+		(1) 元素节点的 nodeType 属性值是1。<br />
+		(2) 属性节点的 nodeType 属性值是2。<br />
+		(3) 文本节点的 nodeType 属性值是3。
+	</p>
+	<h3>4.3 nodeValue 属性</h3>
+	<p>
+		如果想改变一个文本节点的值，可以使用 DOM 提供的 nodeValue 属性，它用来得到和设置一个节点的值。
+	</p>
+	<code>
+		<var>node.nodeValue</var>
+	</code>
+	<h3>4.4 firstChild 和 lastChild 属性</h3>
+	<p>
+		如果需要访问 childNodes 数组的第一个元素或最后一个元素，可以使用下面的语法来获取。
+	</p>
+	<code>
+		<var>node.firstChild</var> //等价于 <var>node.childNodes[0]</var><br />
+		<var>node.lastChild</var> &nbsp;//等价于 <var>node.childNodes[node.childNodes.length-1]</var>
+	</code>
+	<h3>小结</h3>
+	<p>1. 若一个站点用到多个 JavaScript 文件，为了减少对站点的请求次数（提高性能），应该把这些 .js 文件合并到一个文件中。</p>
+</body>
+</html>
