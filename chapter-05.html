@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter05</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<h1>第5章 最佳实践</h1>
+	<h3>5.1 新建窗口</h3>
+	<p>
+		JavaScript 使用 window 对象的 open() 方法来创建新的浏览器窗口。这个方法有三个参数：
+	</p>
+	<code>
+		window.open(url, name, features)
+	</code>
+	<p>
+		这三个参数都是可选的。<br />
+		(1) 第一个参数是想在新窗口里打开的网页的 URL 地址。如果省略这个参数，屏幕将弹出一个空白的浏览器窗口。<br />
+		(2) 第二个参数是新窗口的名字。可以在代码里通过这个名字与新窗口进行通信。<br />
+		(3) 最后一个参数是一个以逗号分隔的字符串。其内容是新窗口的各种属性。这些属性包括新窗口的尺寸（宽度和高度）以及新窗口被启用或禁用的各种浏览器功能（工具条、菜单条、初始显示位置，等等）。对于这个参数应该掌握以下原则：新窗口的浏览功能要少而精。
+	</p>
+	<p>
+		下面这个函数是 window.open() 方法的一种典型应用。
+	</p>
+	<code>
+		function popUp(winURL) {<br />
+		&emsp;&emsp;window.open(winURL, "popup", "width=320, height=480");<br />
+		}
+	</code>
+	<p>
+		这个函数将打开一个320像素宽、480像素高的新窗口“popup”。因为我们在这个函数已经为新窗口命名，所以当把新的 URL 地址传递给此函数时，这个函数将把新窗口里的现有文档替换为新 URL 地址处的文档，而不是再去创建一个新窗口。
+	</p>
+	<h3>5.2 对象检查</h3>
+	<p>
+		在 JavaScript 脚本代码里，在使用某个特定的方法或属性之前，先测试它是否真实存在是确保向后兼容性最安全和最可信的方法。
+	</p>
+	<code>
+		if (method) {<br />
+		&emsp;&emsp;statments;<br />
+		}<br />
+		//比如：<br />
+		if (document.getElementById) {<br />
+		&emsp;&emsp;<var>statemenst using getElementById</var><br />
+		}
+	</code>
+	<h3>5.3 压缩脚本</h3>
+	<p>
+		在写完了脚本，做了优化，而且也将它放到文档中的适当位置之后，还有一件事可以加快加载速度：压缩脚本文件。<br />
+		所谓压缩脚本，指的是把脚本文件中不必要的字节，如空格和注释，统统删除，从而达到“压缩”文件的目的。好在，有很多工具可以替你来做这件事。有的精简程度甚至会重写你的部分代码，使用更短的变量名，从而减少整体文件大小。<br />
+		精简后的代码虽然不容易看懂，却能大幅减少文件大小。多数情况下，你应该有两个版本，一个是工作副本，可以修改代码并添加注释；另一个是精简副本，用于放在站点上。通常，为了与非精简版本区分开，最好在精简副本的文件名中加上 min 字样。<br />
+		代码压缩工具：开源中国社区 (<code class="inlineCode">http://tool.oschina.net/jscompress</code>)。
+	</p>
+</body>
+</html>
