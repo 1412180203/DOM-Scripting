@@ -7,5 +7,23 @@
 </head>
 <body>
 	<h1>第6章 案例研究：图片库改进版</h1>
+	<h3>6.1 共享 onload 事件</h3>
+	<p>
+		网页加载完毕时会触发一个 onload 事件，这个事件与 window 对象相关联。<br />
+		如果有多个函数想在页面加载时得到执行，可以使用如下方法：
+	</p>
+	<code>
+		function addLoadEvent(func) {<br />
+		&nbsp;&emsp;&emsp;var oldonload = window.onload;<br />
+		&nbsp;&emsp;&emsp;if (typeof oldonload != 'function') {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;window.onload = func;<br />
+		&nbsp;&emsp;&emsp;} else {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;window.onload = function() {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;oldonload();<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;func();<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;}<br />
+		&nbsp;&emsp;&emsp;}<br />
+		}
+	</code>
 </body>
 </html>
