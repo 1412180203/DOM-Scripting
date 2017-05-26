@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter07</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<h1>第7章 动态创建标记</h1>
+	<h2>7.1 一些传统的方法</h2>
+	<h3>1. document.write</h3>
+	<p>
+		document 对象的 write() 方法可以方便快捷地把字符串插入到文档里。<br />
+		document.write 的最大缺点是它违背了“行为应该与表现分离”的原则。即使把 document.write 语句挪到外部函数里，也还是需要在标记的&lt;body&gt;部分使用&lt;script&gt;标签才能调用那个函数。
+	</p>
+	<h3>2. innerHTML属性</h3>
+	<p>
+		innerHTML 属性可以用来读、写某给定元素里的 HTML 内容。现如今的浏览器几乎都支持属性 innerHTML，这个属性并不是 W3C DOM 标准的组成部分，但现在已经包含到 HTML5 规范中。<br />
+		innerHTML 属性要比 document.write() 方法更值得推荐。使用 innerHTML 属性，就可以把 JavaScript 代码从标记中分离出来。用不着再在标记的&lt;body&gt;部分插入&lt;script&gt;标签。
+	</p>
+	<h2>7.2 DOM 方法</h2>
+	<p>
+		在 DOM 看来，一个文档就是一棵节点树。如果你想在节点树上添加内容，就必须插入新的节点。如果你想添加一些标记到文档，就必须插入元素节点。
+	</p>
+	<h3>1. createElement 方法</h3>
+	<code>
+		document.createElement(<var><strong>nodeName</strong></var>);
+	</code>
+	<p>
+		虽然这个新创建出来的元素已经存在了，但它还不是任何一棵 DOM 节点树的组成部分，它只是游荡在 JavaScript 世界里的一个孤儿。它这种情况称为文档碎片（document fragment），还无法显示在浏览器的窗口画面里。
+	</p>
+	<h3>2. appendChild 方法</h3>
+	<p>
+		把新创建的节点插入某文档的节点树的最简单的方法是，让它成为这个文档某个现有节点的一个子节点。
+	</p>
+	<code>
+		parent.appendChild(<var><strong>child</strong></var>);
+	</code>
+	<h3>3. createTextNode 方法</h3>
+	<code>
+		document.createTextNode(<var><strong>text</strong></var>);
+	</code>
+	<h3>4. insertBefore 方法</h3>
+	<p>
+		DOM 提供了名为 insertBefore() 方法，这个方法将把一个新元素插入到一个现有元素的前面。在调用此方法时，你必须告诉它三件事：<br />
+		(1) 新元素：你想插入的元素（<var>newElement</var>）。<br /> 
+		(2) 目标元素：你想把这个新元素插入到哪个元素（<var>targetElement</var>）之前。<br />
+		(3) 父元素：目标元素的父元素（<var>parentElement</var>）。
+	</p>
+	<code>
+		parentElement.insertBefore(<var><strong>newElement, targetElement</strong></var>);
+	</code>
+	<p>
+		我们不必搞清楚父元素到底是哪个，因为 targetElement 元素的 parentNode 属性值就是它。<br />
+		在 DOM 里，元素节点的父元素必须是另一个元素节点（属性节点和文本节点的子元素不允许是元素节点）。
+	</p>
+	<h3>5. 编写 insertAfter 函数</h3>
+	<p>
+		虽然 DOM 本身没有提供 insertAfter 方法，但它确实提供了把一个节点插入到另一个节点之后所需的所有工具。我们完全可以利用已有的 DOM 方法和属性编写一个 insertAfter 函数：
+	</p>
+	<code>
+		function insertAfter(newElement, targetElement) {<br />
+		&nbsp;&emsp;&emsp;var parent = targetElement.parentNode;<br />
+		&nbsp;&emsp;&emsp;if (parent.lastChild == targetElement) {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;parent.appendChild(newElement);<br />
+		&nbsp;&emsp;&emsp;} else {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;parent.insertBefore(newElement, targetElement.nextSibling);<br />
+		&nbsp;&emsp;&emsp;}<br />
+		}
+	</code>
+	<h2>7.3 Ajax</h2>
+	<p>
+		Ajax 的主要优势就是对页面的请求以异步方式发送到服务器。而服务器不会用整个页面来响应请求，它会在后台处理请求，与此同时用户还能继续浏览页面并与页面交互。你的脚本则可以按需加载和创建页面内容，而不会打断用户的浏览体验。利用 Ajax，Web 应用可以呈现出功能丰富、交互敏捷、类似桌面应用般的体验，就像你使用谷歌地图时的感觉一样。<br />
+		和任何新技术一样，Ajax 有它自己的使用范围。它依赖 JavaScript，所以可能会有浏览器不支持它，而搜索引擎的蜘蛛程序也不会抓取有关内容。
+	</p>
+	<h3>1. XMLHttpRequest 对象</h3>
+	<p>
+		Ajax 技术的核心就是 XMLHttpRequest 对象。这个对象充当着浏览器中的脚本（客户端）与服务器之间的中间人的角色。以往的请求都由浏览器发出，而 JavaScript 通过这个对象可以自己发送请求，同时也自己处理响应。
+	</p>
+	<p>
+		为了模拟服务器的响应，我们创建一个 example.txt 文件，包含如下内容：This was loaded asynchronously!
+	</p>
+	<p>
+		微软最早在 IE5 中以 ActiveX 对象的形式实现了一个名叫 XMLHTTP 的对象。在 IE 中创建新的对象要使用下列代码：<br />
+		<code class="inlineCode">var request = new ActiveXObject("Msxml2.XMLHTTP.3.0");</code><br />
+		其他的浏览器则基于 XMLHttpRequest 来创建新对象：<br />
+		<code class="inlineCode">var request = new XMLHttpRequest();</code>
+		更麻烦的是，不同的 IE 版本中使用的 XMLHTTP 对象也不完全相同。为了兼容所有浏览器，getHTTPObject 函数要这样来写：
+	</p>
+	<code>
+		function getHTTPObject() {<br />
+		&nbsp;&emsp;&emsp;if (typeof XMLHTTPRequest == "undefined") {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;XMLHTTPRequest = function() {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;try {return new ActiveXObject("Msxml2.XMLHTTP.6.0");}<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;catch (e) {}<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;try {return new ActiveXObject("Msxml2.XMLHTTP.3.0");}<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;catch (e) {}<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;try {return new ActiveXObject("Msxml2.XMLHTTP");}<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;catch (e) {}<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;return false;<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;}<br />
+		&nbsp;&emsp;&emsp;}<br />
+		&nbsp;&emsp;&emsp;return new XMLHttpRequest();<br />
+		}
+	</code>
+	<p>
+		getHTTPObject 通过对象检测技术检测了 XMLHttpRequest。如果失败，则继续检测其他方法，最终返回 false 或一个新的 XMLHttpRequest（或 XMLHTTP）对象。<br />
+		这样，需要使用 XMLHttpRequest 对象时，可以将这个新的对象直接赋值给一个变量：<br />
+		<code class="inlineCode">var request = getHTTPObject();</code>
+	</p>
+	<p>
+		XMLHttpRequest 对象有许多的方法。其中最有用的是 open 方法，它用来指定服务器上将要访问的文件，指定请求类型：GET、POST 或 SEND。这个方法的第三个参数用于指定请求是否以异步方式发送和处理。
+	</p>
+	<code>
+		function getNewContent() {<br />
+		&nbsp;&emsp;&emsp;var request = getHTTPObject();<br />
+		&nbsp;&emsp;&emsp;if (request) {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;request.open("GET", "example.txt", true);<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;request.onreadystatechange = function() {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;if (request.readyState == 4) {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;var para = document.createElement("p");<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;var txt = document.createTextNode(request.responseText);<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;para.appendChild(txt);<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;document.getElementById("new").appendChild(para);<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;}<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;};<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;request.send(null);<br />
+		&nbsp;&emsp;&emsp;} else {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;alert("Sorry, your brower doesn't support XMLHttpRequest");<br />
+		&nbsp;&emsp;&emsp;}<br />
+		}<br />
+		addLoadEvent(getNewContent);
+	</code>
+	<p>
+		当页面加载完成后，以上代码会发起一个 GET 请求，请求该目录下的 example.txt 文件。<br />
+		代码中的 onreadystatechange 是一个事件处理函数，它会在服务器给 XMLHttpRequest 对象送回响应的时候被触发。在这个处理函数中，可以根据服务器的具体响应做响应的处理。<br />
+		在指定了请求的目标，也明确了如何处理响应之后，就可以用 send 方法来发送请求了。<br />
+		服务器在向 XMLHttpRequest 对象发回响应时，该对象有许多属性可用，浏览器会在不同阶段更新 readyState 属性值，它有5个可能的值：
+	</p>
+	<ul>
+		<li>0 表示未初始化</li>
+		<li>1 表示正在加载</li>
+		<li>2 表示加载完毕</li>
+		<li>3 表示正在交互</li>
+		<li>4 表示完成</li>
+	</ul>
+	<p>
+		只要 readyState 属性的值变成了4，就可以访问服务器发送回来的数据了。<br />
+		访问服务器发送回来的数据要通过两个属性完成。一个是 responseText 属性，这个属性用于保存文本字符串形式的数据。另一个属性是 responseXML 属性，用于保存 Content-Type 头部中指定为 “text/xml” 的数据，其实是一个 DocumentFragment 对象。你可以使用各种 DOM 方法来处理这个对象。而这也正是 XMLHttpRequest 这个名称里有 XML 的原因。
+	</p>
+	<p>
+		在使用 Ajax 时，千万要注意同源策略。使用 XMLHttpRequest 对象发送的请求只能访问与其所在的 HTML 处于同一个域中的数据，不能向其他域发送请求。此外，有些浏览器还会限制 Ajax 请求使用的协议。比如在 Chrome 中，如果你使用 file:// 协议从自己的硬盘里加载 example.txt 文件，就会看到 “Cross origin requests are only supported for HTTP”（跨域请求只支持 HTTP 协议）的错误消息。
+	</p>
+	<p>
+		异步请求有一个容易被忽略的问题是异步性，就是脚本在发送 XMLHttpRequest 请求之后，仍然会继续执行，不会等待响应返回。因此，如果其他脚本依赖于服务器的响应，那么久得把响应的代码都转移到指定给 onreadystatechange 属性的那个函数中。
+	</p>
+</body>
+</html>
