@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter08</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<h1>第8章 充实文档的内容</h1>
+	<h3>8.1 为网站添加快捷键</h3>
+	<p>
+		accesskey 属性可以把一个元素与键盘上的某个特定按键关联在一起。几乎所有浏览器均 accesskey 属性，除了 Opera。<br />
+		以下元素支持 accesskey 属性：a, area, button, input, label, legend 以及 textarea。<br />
+		一些基本的快捷键都有约定俗成的设置办法，可以参考：<code class="inlineCode">http://www.clagnut.com/blog/193/</code>
+	</p>
+	<ul>
+		<li>accesskey="1" 对应着一个 “返回到本网站主页” 的链接</li>
+		<li>accesskey="2" 对应着一个 “后退到前一个页面” 的链接</li>
+		<li>accesskey="4" 对应着一个 “打开本网站的搜索表单/页面” 的链接</li>
+		<li>accesskey="9" 对应着一个 “本网站联系方式” 的链接</li>
+		<li>accesskey="0" 对应着一个 “查看本网站的快捷键清单” 的链接</li>
+	</ul>
+	<p>
+		下面是一个网站导航清单的例子：
+	</p>
+	<code>
+		&lt;ul id="navigation"&gt;<br />
+		&nbsp;&emsp;&emsp;&lt;li&gt;&lt;a href="index.html" accesskey="1">Home&lt;/a&gt;&lt;/li&gt;<br />
+		&nbsp;&emsp;&emsp;&lt;li&gt;&lt;a href="search.html" accesskey="4">Search&lt;/a&gt;&lt;/li&gt;<br />
+		&nbsp;&emsp;&emsp;&lt;li&gt;&lt;a href="contact.html" accesskey="9">Contact&lt;/a&gt;&lt;/li&gt;<br />
+		&lt;/ul&gt;
+	</code>
+</body>
+</html>
