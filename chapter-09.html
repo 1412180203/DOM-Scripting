@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter09</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<style type="text/css">
+		#test {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h1>第9章 CSS-DOM</h1>
+	<h2>9.1 style 属性</h3>
+	<p>
+		文档中的每个元素都是一个对象，每个对象又有着各种各样的属性。有一些属性告诉我们元素在节点树上的位置信息。例如：parentNode、nextSibling、previousSibling、childNodes、firstChild 和 lastChild 这些属性，就告诉了我们文档中各节点的之间关系信息。
+	</p>
+	<p>
+		其他一些属性（比如 nodeType 和 nodeName 属性）包含元素本身的信息。
+	</p>
+	<p>
+		除此之外，文档的每个元素节点还都有一个属性 style。style 属性包含着元素的样式，查询这个属性将返回一个对象而不是一个简单的字符串。样式都存放在这个 style 对象的属性里：<br />
+		<code class="inlineCode">element.style.property</code>
+	</p>
+	<h3>1. 获取样式</h3>
+	<p>
+		当需要引用一个中间带减号的 CSS 属性时，DOM 要求使用驼峰命名法。比如 CSS 属性 font-family 变为 DOM 属性 fontFamily。不管 CSS 样式属性的名字里有多少个连字符，DOM 一律采用驼峰命名法来表示它们。<br />
+		DOM 在表示样式属性时采用的单位并不总是与它们在 CSS 样式表里的设置相同。
+	</p>
+	<p>
+		style 属性只能返回内嵌样式。换句话说，只有把 CSS style 属性插入到标记里，才可以用 DOM style 属性去查询那些信息。<br />
+		在外部样式表里声明的样式不会进入 style 对象，在文档的 &lt;head&gt; 部分里声明的样式也是如此。<br />
+		不过，用 DOM 设置的样式，可以用 DOM 再把它们检索出来。
+	</p>
+	<h3>2. 设置样式</h3>
+	<p>
+		许多 DOM 属性是只读的，我们只能用它们来获取信息，但不能用它们来设置或更新信息。类似 previousSibling、nextSibling、parentNode、firstChild 和 lastChild 之类的属性，它们不能用来更新信息。
+	</p>
+	<p>
+		style 对象的各个属性都是可读写的，我们不仅可以通过某个元素的 style 属性去获取样式，还可以通过它去更新样式。<br />
+		<code class="inlineCode">element.style.property = value;</code><br />
+		style 对象的属性值永远是一个字符串。
+	</p>
+	<h2>9.2 className 属性</h2>
+	<p>
+		className 属性是一个可读/可写的属性，凡是元素节点都有这个属性。<br />
+		可以用 className 属性得到一个元素的 class 属性：<code class="inlineCode">element.className</code><br />
+		用 className 属性和赋值操作符设置一个元素的 class 属性：<code class="inlineCode">element.className = value</code>
+	</p>
+	<code>
+		function addClass(element, value) {<br />
+		&nbsp;&emsp;&emsp;if (!element.className) {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;element.className = value;<br />
+		&nbsp;&emsp;&emsp;} else {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;element.className += " " + value;<br />
+		&nbsp;&emsp;&emsp;}<br />
+		}
+	</code>
+</body>
+</html>
