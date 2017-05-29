@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter10</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<h1>第10章 用 JavaScript 实现动画效果</h1>
+	<h3>10.1 时间</h3>
+	<p>
+		JavaScript 函数 setTimeout 能够让某个函数在经过一段预定的时间之后才开始执行。这个函数带有两个参数：第一个参数通常是一个字符串，其内容是将要执行的那个函数的名字；第二个参数是一个数值，它以毫秒为单位设定了需要经过多长时间后才开始执行第一个参数所给出的函数。<br />
+		调用该函数有一个返回值，将返回值传递给 clearTimeout 函数可以用来取消某个正在排队等待执行的函数。
+	</p>
+	<code>
+		function say(str) {<br />
+		&nbsp;&emsp;&emsp;alert(str);<br />
+		}<br />
+		var id = setTimeout("say('Hello World!')", 3000);<br />
+		//clearTimout(id);
+	</code>
+	<h3>小结</h3>
+	<p>
+		JavaScript 函数 parseInt 可以把字符串里的数值信息提取出来。如果把一个以数字开头的字符串传递给这个函数，它将返回一个数值：<br />
+		<code class="inlineCode">parseInt(string)</code><br />
+		parseInt 函数的返回值通常是整数。如果需要提取的是带小数点（也就是浮点数），可以使用相应的 parseFloat 函数：<br />
+		<code class="inlineCode">parseFloat(string)</code>
+	</p>
+	<p>
+		JavaScript 允许我们为元素创建属性：<br />
+		<code class="inlineCode"><var>element.property = value</var></code>
+	</p>
+	<p>
+		Math 对象的 ceil、floor 和 round 方法：<br />
+	</p>
+	<code>
+		Math.ceil(<var>number</var>);  // 向大于方向舍入为与之最接近的整数。<br />
+		Math.floor(<var>number</var>); // 向小于方向舍入为与之最接近的整数。<br />
+		Math.round(<var>number</var>); // 将把任意浮点数舍入为与之最接近的整数。
+	</code>
+	<script>
+	</script>
+</body>
+</html>
