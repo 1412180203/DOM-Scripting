@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter11</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<h1>第11章 HTML5</h1>
+	<h3>11.1 视频</h3>
+	<p>
+		在浏览器显示 &lt;video&gt; 元素时，会为其添加一些与浏览器样式统一的标准播放控件。要想自定义这些控件的外观，或者添加新的控件，可以通过一些 DOM 属性来实现，主要包括：<br />
+		(1) currentTime，返回当前播放的位置，以秒表示。<br />
+		(2) duration，返回当前媒体的总时长，以秒表示，对于流媒体返回无穷大。<br />
+		(3) paused，表示媒体是否处于暂停状态。<br />
+		此外，还有一些与特定媒体相关的事件，可以用来触发你的脚本：<br />
+		(1) paly，在媒体播放开始时发生。<br />
+		(2) pause，在媒体暂停时发生。<br />
+		(3) loadeddata，在媒体可以从当前播放位置开始播放时方式。<br />
+		(4) ended，在媒体已经播放完成而停止时发生。<br />
+		使用这些及其属性和事件，可以轻松地创建自定义的视频控件，实现对视频的各种控制。不管创建什么控件，都别忘了在 &lt;video&gt; 元素中添加 control 属性：<code class="inlineCode">&lt;video src="movie.ogv" control&gt;</code>
+	</p>
+	<h3>11.2 表单</h3>
+	<p>
+		检查浏览器是否支持某种类型的输入控件：
+	</p>
+	<code>
+		function inputSupportsType(type) {<br />
+		&nbsp;&emsp;&emsp;if (!document.createElement) return false;<br />
+		&nbsp;&emsp;&emsp;var input = document.createElement('input');<br />
+		&nbsp;&emsp;&emsp;input.setAttribute('type', type);<br />
+		&nbsp;&emsp;&emsp;if (input.type == 'text' && type != 'text') {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;return false;<br />
+		&nbsp;&emsp;&emsp;} else {<br />
+		&nbsp;&emsp;&emsp;&nbsp;&emsp;&emsp;return true;<br />
+		&nbsp;&emsp;&emsp;}<br />
+		}
+	</code>
+	<p>
+		检查特定的属性：
+	</p>
+	<code>
+		function elementSupportsAttribute(elementName, attribute) {<br />
+		&nbsp;&emsp;&emsp;if (!document.createElement) return false;<br />
+		&nbsp;&emsp;&emsp;var temp = document.createElement(elementName);<br />
+		&nbsp;&emsp;&emsp;return (attribute in temp);<br />
+		}
+	</code>
+	<h3>11.3 HTML5 的其他特性</h3>
+	<p>
+		(1) 使用 localStorage 和 sessionStorage 在客户端存储大型和复杂数据集的更有效方案。<br />
+		(2) 使用 WebSocket 与服务器端脚本进行开放的双向通信。<br />
+		(3) 使用 Web Worker 在后台执行 JavaScript。<br />
+		(4) 标准化的拖放实现。<br />
+		(5) 在浏览器中实现地理位置服务。
+	</p>
+	<h3>小结</h3>
+	<p>
+		Modernizr (<code class="inlineCode">http://www.modernizr.com</code>) 是一个开源的 JavaScript 库，利用它的富特性检测功能，可以对 HTML5 文档进行更好的控制。Modernizr 不会给你添加浏览器不支持的特性，只会为你提供一些不同的 CSS 类名以及特性检测属性。<br />
+		在文档中嵌入 Modernizr 之后，它会修改 &lt;html&gt; 的 calss 属性，基于可用的 HTML5 特性添加额外的类型，根据这些类名，可以在 CSS 中定义相应的增强和退化版本。<br />
+		Modernizr 库也提供了 JavaScript 特性检测对象，可以在 DOM 脚本中直接使用，例如检测浏览器是否支持 &lt;canvas&gt;：<code class="inlineCode">Modernizr.canvas</code>
+	</p>
+</body>
+</html>
