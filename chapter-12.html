@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>chapter12</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+	<h1>第12章 综合示例</h1>
+	<h3>12.1 利用 Ajax 提交表单</h3>
+	<p>
+		创建一个 URL 编码的表单数据字符串，以便通过 POST 请求发送到服务器。这个 URL 字符串的格式与 URL 参数相同：<br />
+		<code class="inlineCode"><var>name=value&name2=value2&name3=value3</var></code><br />
+		表单中每个字段的值都会编码为这种数据字符串。为了避免歧义，可以使用 JavaScript 的 encodeURIComponent 函数把这些值编码成 URL 安全的字符串。这个函数会把有歧义的字符串转换成对应的 ASCII 编码。
+	</p>
+	<code>
+		var dataParts = [];<br />
+		var element;<br />
+		for (var i = 0; i < whichform.elements.length; ++ i) {<br />
+		&nbsp;&emsp;&emsp;element = whichform.elements[i];<br />
+		&nbsp;&emsp;&emsp;dataParts[i] = element.name + '=' + encodeURIComponent(element.value);<br />
+		}<br />
+		var data = dataParts.join('&amp;');
+	</code>
+	<p>
+		在用 Ajax 提交表单时，下面的这个头部信息对于 POST 请求是必需的，它表示请求中包含 URL 编码的表单。<br />
+		<code class="inlineCode">request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");</code>
+	</p>
+	<h3>小结</h3>
+	<p>
+		JavaScript 取得当前页面的 URL，可以使用 <code class="inlineCode">window.location.href</code>
+	</p>
+	<p>
+		JavaScript 为比较字符串提供了很多方法，其中，indexOf 方法用于在字符串中寻找子字符串的位置<br />
+		<code class="inlineCode"><var>string</var>.indexOf(<var>substring</var>)</code><br />
+		这个方法返回子字符串第一次出现的位置。如果没有出现，返回-1。
+	</p>
+	<p>在 JavaScript 中，正则表达式的每个模式都以一个斜杠（/）开头和结尾。如果模式本身包含斜杠，必须使用反斜杠（\）对其转义。</p>
+</body>
+</html>
